@@ -39,7 +39,7 @@ If you are not familiar with MeTTa programming langauge check the [documentation
 
    ```bash
    git clone <repository-url>
-   cd medical_chatbot
+   cd recipe_chatbot
    ```
 
 2. **Set up a virtual environment**:

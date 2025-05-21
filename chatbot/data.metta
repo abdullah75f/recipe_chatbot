@@ -1,194 +1,106 @@
-(Name Bisrat)
-(Name Amina )
-(Name Jamil)
-(Name Sara)
-(Name Omar)
-(Name Layla)
-(Name Tariq)
+; Recipe Definitions
+(Recipe PastaWithTomatoAndCheese)
+(Recipe MargheritaPizza)
+(Recipe VegetableStirFry)
+(Recipe ChickenCurry)
+(Recipe GreekSalad)
+(Recipe BeefStroganoff)
+(Recipe MushroomRisotto)
+(Recipe FishAndChips)
 
-( = (findAllUsers)
-    (collapse (match &self (Name $name) $name))
-)
+; Ingredients
+(Ingredient Tomato)
+(Ingredient Pasta)
+(Ingredient Cheese)
+(Ingredient PizzaDough)
+(Ingredient Mozzarella)
+(Ingredient Basil)
+(Ingredient BellPepper)
+(Ingredient Onion)
+(Ingredient Garlic)
+(Ingredient Chicken)
+(Ingredient CurryPowder)
+(Ingredient Cucumber)
+(Ingredient Olive)
+(Ingredient Feta)
+(Ingredient Beef)
+(Ingredient Mushroom)
+(Ingredient Rice)
+(Ingredient Fish)
+(Ingredient Potato)
 
-( = (findUser $name)
-    (collapse (match &self (Name $name) $name))
-)
+; Recipe-Ingredient Relationships
+(Contains PastaWithTomatoAndCheese Tomato)
+(Contains PastaWithTomatoAndCheese Pasta)
+(Contains PastaWithTomatoAndCheese Cheese)
 
-( = (findDiseaseFromUser $name)
-    (collapse (match &self (Has $name $disease) $disease))
-)
+(Contains MargheritaPizza PizzaDough)
+(Contains MargheritaPizza Tomato)
+(Contains MargheritaPizza Mozzarella)
+(Contains MargheritaPizza Basil)
 
-( = (findDisreaseFromVulnerability $vulnerable)
-    (collapse (match &self (Vulnerable $disease $vulnerable) $disease))
-)
+(Contains VegetableStirFry BellPepper)
+(Contains VegetableStirFry Onion)
+(Contains VegetableStirFry Garlic)
 
+(Contains ChickenCurry Chicken)
+(Contains ChickenCurry Onion)
+(Contains ChickenCurry Garlic)
+(Contains ChickenCurry CurryPowder)
 
-; Parasites and Types
-(Parasite Typoiad Bacteria)
-(Parasite Cold Virus)
-(Parasite Malaria Protozoa)
-(Parasite Giardia ParasiticProtozoa)
-(Parasite Toxoplasma ParasiticProtozoa)
-(Parasite Lyme Bacteria)
-(Parasite Chagas ParasiticInsect)
-(Parasite Schistosoma Worm)
-; Diseases and Causes
+(Contains GreekSalad Cucumber)
+(Contains GreekSalad Tomato)
+(Contains GreekSalad Olive)
+(Contains GreekSalad Feta)
 
-(CausedBy Typoiad notWashingHands)
-(CausedBy Typoiad ByTouchingPeople)
-(CausedBy Cold Virus)
-(CausedBy Malaria MosquitoBite)
-(CausedBy Giardia ContaminatedWater)
-(CausedBy Toxoplasma CatFeces)
-(CausedBy Lyme TickBite)
-(CausedBy Chagas InsectBite)
-(CausedBy Schistosoma WaterExposure)
-(CausedBy Flu Virus)
-(CausedBy Pneumonia Bacteria)
-(CausedBy Tuberculosis AirborneBacteria)
-(CausedBy Hepatitis ContaminatedFood)
-; Vulnerabilities
+(Contains BeefStroganoff Beef)
+(Contains BeefStroganoff Mushroom)
+(Contains BeefStroganoff Onion)
 
-(Vulnerable Cold lowImmuneSystem)
-(Vulnerable Flu lowImmuneSystem)
-(Vulnerable Malaria TropicalClimate)
-(Vulnerable Giardia poorSanitation)
-(Vulnerable Toxoplasma weakenedImmunity)
-(Vulnerable Lyme OutdoorActivity)
-(Vulnerable Tuberculosis CrowdedLiving)
-(Vulnerable Hepatitis poorHygiene)
-(Vulnerable Pneumonia elderly)
-(Vulnerable Alzheimer agedPerson)
-; Correlations Between Conditions
+(Contains MushroomRisotto Mushroom)
+(Contains MushroomRisotto Rice)
+(Contains MushroomRisotto Onion)
 
-( = (findDisreaseFromVulnerability $vulnerable )
-    (match &self (Vulnerable $disease $vulnerable) $disease)
+(Contains FishAndChips Fish)
+(Contains FishAndChips Potato)
 
-)
+; Cooking Times (in minutes)
+(CookingTime PastaWithTomatoAndCheese 20)
+(CookingTime MargheritaPizza 30)
+(CookingTime VegetableStirFry 15)
+(CookingTime ChickenCurry 45)
+(CookingTime GreekSalad 10)
+(CookingTime BeefStroganoff 40)
+(CookingTime MushroomRisotto 35)
+(CookingTime FishAndChips 25)
 
-(Correlated Cold Flu)
-(Correlated Flu Pneumonia)
-(Correlated Malaria Dengue)
-(Correlated Giardia Dysentery)
-(Correlated Toxoplasma Schizophrenia)
-(Correlated Lyme Arthritis)
-(Correlated Tuberculosis HIV)
-(Correlated Hepatitis Cirrhosis)
-; Genetic Predispositions
-(Has Bisrat Flu)
-(Has Amina Malaria)
-(Has Jamil Tuberculosis)
-(Has Sara Alzheimer)
-(Has Omar SickleCell)
-(Has Layla CysticFibrosis)
-(Has Tariq Huntington)
-; Likelihood Scenarios
+; Dietary Restrictions
+(DietaryRestriction PastaWithTomatoAndCheese Vegetarian)
+(DietaryRestriction MargheritaPizza Vegetarian)
+(DietaryRestriction VegetableStirFry Vegan)
+(DietaryRestriction GreekSalad Vegetarian)
+(DietaryRestriction MushroomRisotto Vegetarian)
 
-(Likely Alzheimer agedPerson)
-(Likely Diabetes obesity)
-(Likely Malaria tropicalResident)
-(Likely Cold coldWeather)
-(Likely Flu seasonalChange)
-(Likely Pneumonia postFlu)
-(Likely Tuberculosis immuneDeficiency)
-(Likely SickleCell africanDescent)
-; Additional Patterns
-; Symptoms:
+; Functions to query the knowledge base
+(= (findRecipesWithIngredients $ingredients)
+    (let $recipes (match &self (Recipe $recipe) $recipe)
+        (filter (lambda $recipe
+            (all (lambda $ingredient
+                (match &self (Contains $recipe $ingredient) $ingredient))
+                $ingredients))
+            $recipes)))
 
+(= (getRecipeIngredients $recipe)
+    (collapse (match &self (Contains $recipe $ingredient) $ingredient)))
 
-(SymptomOf Typoiad Fever)
-(SymptomOf Cold Cough)
-(SymptomOf Malaria Chills)
-(SymptomOf Giardia Diarrhea)
-(SymptomOf Flu Fatigue)
-(SymptomOf Alzheimer MemoryLoss)
-(SymptomOf Pneumonia ShortnessOfBreath)
-(SymptomOf Tuberculosis NightSweats)
-; Treatments:
+(= (getCookingTime $recipe)
+    (collapse (match &self (CookingTime $recipe $time) $time)))
 
-(TreatedBy Typoiad Antibiotics)
-(TreatedBy Cold Rest)
-(TreatedBy Malaria Antimalarials)
-(TreatedBy Giardia Antiparasitics)
-(TreatedBy Flu Antivirals)
-(TreatedBy Alzheimer Medication)
-(TreatedBy Pneumonia Antibiotics)
-(TreatedBy Tuberculosis Antibiotics)
+(= (getDietaryRestrictions $recipe)
+    (collapse (match &self (DietaryRestriction $recipe $restriction) $restriction)))
 
-; Transmission:
+(= (findVegetarianRecipes)
+    (collapse (match &self (DietaryRestriction $recipe Vegetarian) $recipe)))
 
-(TransmittedBy Cold Airborne)
-(TransmittedBy Flu Contact)
-(TransmittedBy Malaria Mosquito)
-(TransmittedBy Tuberculosis Cough)
-(TransmittedBy Hepatitis Blood)
-
-; Complications:
-(Complicates Flu Pneumonia)
-(Complicates Malaria OrganFailure)
-(Complicates Tuberculosis LungDamage)
-(Complicates Alzheimer Dementia)
-(Complicates Diabetes Blindness)
-
-; Prevention:
-(PreventedBy Typoiad HandWashing)
-(PreventedBy Cold Vaccination)
-(PreventedBy Malaria MosquitoNet)
-(PreventedBy Tuberculosis Ventilation)
-(PreventedBy Flu Hygiene)
-
-; Rare Diseases and Specific Cases
-(Parasite Fabry EnzymeDeficiency)
-(CausedBy Fabry GeneticMutation)
-(Vulnerable Fabry Children)
-(SymptomOf Fabry Pain)
-(TreatedBy Fabry EnzymeReplacement)
-(Has Khalid Fabry)
-(Parasite Pompe GlycogenStorage)
-(CausedBy Pompe Genetic)
-(SymptomOf Pompe MuscleWeakness)
-(Vulnerable Pompe Infants)
-(TreatedBy Pompe EnzymeTherapy)
-(Parasite Gaucher LipidStorage)
-(CausedBy Gaucher GeneticMutation)
-(SymptomOf Gaucher Fatigue)
-(TreatedBy Gaucher EnzymeReplacement)
-(Vulnerable Gaucher Adults)
-
-
-( = (causedBy $disease)
-    (collapse (match &self (CausedBy $disease $cause) $cause))
-
-)
-
-
-
-( = (findParasite $disease)
-    (collapse (match &self (Parasite $disease $parasite) $parasite))
-
-)
-
-
-
-( = (getDiseaseAndCorrelatedDisease $name)
-
-    (let $disease  (match &self (Has $name $disease) $disease)
-        ($disease (match &self (Correlated $disease $correlated) $correlated))
-    )
-)
-
-(= (parasiteSymptoms $type)
-    (let $disease (match &self (Parasite $disease $type) $disease)
-        ($disease ("symptoms are") (match &self (SymptomOf $disease $symptom) $symptom)))
-)
-
-
-(= (vulnerableTreatments $condition)
-    (let $disease (match &self (Vulnerable $disease $condition) $disease)
-        ($disease (match &self (TreatedBy $disease $treatment) $treatment)))
-)
-
-(= (userDiseaseCauses $name)
-    (let $disease (match &self (Has $name $disease) $disease)
-        ($disease (match &self (CausedBy $disease $cause) $cause)))
-)
+(= (findVeganRecipes)
+    (collapse (match &self (DietaryRestriction $recipe Vegan) $recipe)))
