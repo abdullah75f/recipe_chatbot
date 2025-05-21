@@ -1,77 +1,73 @@
-# Medical Chatbot
+# Recipe Chatbot
 
-![alt text](image.png)
-
-
+![Recipe Chatbot](image.png)
 
 ## Introduction
 
-This is a medical chatbot that can answer questions about various medical topics. It uses the Gemini open model to generate responses based on user input.
+This is a recipe chatbot that answers questions about recipes, ingredients, and cooking instructions. It leverages the Gemini AI model to generate helpful and accurate responses based on user input.
 
-The chatbot uses meTTa langauge to perform context fetching and pattern mining. It integrates AI with hypergraph-based data representation to provide accurate and context-aware responses.
+The chatbot uses the MeTTa language for context fetching and pattern mining. By integrating AI with hypergraph-based data representation, it provides context-aware and relevant answers.
 
-If you are not familiar with MeTTa programming langauge check the [documentation](https://metta-lang.dev/)
+If you are not familiar with the MeTTa programming language, check the [documentation](https://metta-lang.dev/).
 
+## How It Works
 
-## How to works
-1. A user Inserts a prompts to the UI 
-2. An AI model parses the input and extract important context like name, disease, symptoms and returns it as a Json.
-3. Important imformation are fetched from the meTTa data using helper funtions
-4. The fethed data is given to the llm again to generate the response.
- 
+1. The user submits a prompt via the UI.
+2. The AI model parses the input and extracts important context such as ingredients, cuisine, dietary preferences, etc., and returns it as JSON.
+3. Relevant information is fetched from the MeTTa data using helper functions.
+4. The fetched data is supplied back to the LLM to generate a final response.
 
 ## Features
 
-- Answer questions about medical topics
-- Can answer user-specific questions using a meTTa hypergraph
-- An interactive UI for seamless user experience
+- Answers questions about recipes, ingredients, and cooking methods.
+- Can provide user-specific answers using a MeTTa hypergraph.
+- Interactive UI for a seamless user experience.
 
-## Technologies used
+## Technologies Used
 
-- AI : Gemini
-- BackEnd : Django
-- FrontEnd: HTML, CSS, Javascript 
-- Context fetching: MeTTa
+- **AI:** Gemini
+- **Backend:** Django
+- **Frontend:** HTML, CSS, JavaScript
+- **Context Fetching:** MeTTa
 
 ## How to Run
 
-1. **Clone the repository**:
+1. **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd recipe_chatbot
+    ```
 
-   ```bash
-   git clone <repository-url>
-   cd recipe_chatbot
-   ```
+2. **Set up a virtual environment:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
 
-2. **Set up a virtual environment**:
+3. **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+4. **Run migrations:**
+    ```bash
+    python manage.py migrate
+    ```
 
-3. **Install dependencies**:
+5. **Start the development server:**
+    ```bash
+    python manage.py runserver
+    ```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run migrations**:
-
-   ```bash
-   python manage.py migrate
-   ```
-
-5. **Start the development server**:
-
-   ```bash
-   python manage.py runserver
-   ```
-
-6. **Access the application**:
-   Open your browser and navigate to `http://127.0.0.1:8000`.
+6. **Access the application:**
+    Open your browser and go to [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## Important Files
 
-- `views.py` - This file holds all the major logic functionalities of the backend.
-- `data.metta` - This file holds the data in a meTTa data representation format and the functions that are used to mine complex relations from the data and give to the AI as a context.
-- `utils.py` - Holds the integration between meTTa and Python.
+- `views.py` – Contains the main logic for the backend.
+- `data.metta` – Stores data in MeTTa format and functions for mining complex relationships and providing context to the AI.
+- `utils.py` – Handles integration between MeTTa and Python.
+
+---
+
+Feel free to update the feature list or instructions to reflect any specific changes or enhancements in your project!
