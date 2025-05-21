@@ -30,6 +30,16 @@ If you are not familiar with the MeTTa programming language, check the [document
 - **Frontend:** HTML, CSS, JavaScript
 - **Context Fetching:** MeTTa
 
+## Gemini Integration & MeTTa Hypergraph Scheme Design
+
+- **Gemini Integration Step:**  
+  The chatbot leverages Google's Gemini AI for natural language understanding and response generation. Integration involves setting up API keys and configuring the backend to route user queries through Gemini, ensuring contextually rich and accurate answers.
+
+- **MeTTa Hypergraph Scheme Design:**  
+  The system uses a hypergraph-based scheme designed in MeTTa to represent complex relationships between recipes, ingredients, and user preferences. This enables flexible context fetching and advanced pattern mining, making the chatbot's responses more relevant and personalized.
+
+
+
 ## How to Run
 
 1. **Clone the repository:**
@@ -67,7 +77,3 @@ If you are not familiar with the MeTTa programming language, check the [document
 - `views.py` – Contains the main logic for the backend.
 - `data.metta` – Stores data in MeTTa format and functions for mining complex relationships and providing context to the AI.
 - `utils.py` – Handles integration between MeTTa and Python.
-
----
-
-Feel free to update the feature list or instructions to reflect any specific changes or enhancements in your project!
